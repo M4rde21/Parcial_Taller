@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Resumen del Inventario{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Resumen del Inventario</h1>
+        
+        <form method="get" class="mb-4">
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Filtrar</button>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Proveedor</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mueble in muebles %}
+                        <tr class="bg-white">
+                            <td>{{ mueble.nombre }}</td>
+                            <td>{{ mueble.categoria.nombre }}</td>
+                            <td>{{ mueble.proveedor.nombre }}</td>
+                            <td>${{ mueble.precio }}</td>
+                            <td>{{ mueble.stock }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No hay muebles disponibles.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

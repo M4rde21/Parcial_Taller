@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrar Mueble{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Registrar Nuevo Mueble</h1>
+        <form method="post" class="bg-light p-4 rounded shadow-sm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_nombre" class="form-label text-dark">Nombre del Mueble</label>
+                <input type="text" name="nombre" id="id_nombre" class="form-control" placeholder="Nombre del mueble">
+            </div>
+            <div class="form-group">
+                <label for="id_descripcion" class="form-label text-dark">Descripción del Mueble</label>
+                <textarea name="descripcion" id="id_descripcion" class="form-control" placeholder="Descripción del mueble"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="id_precio" class="form-label text-dark">Precio del Mueble</label>
+                <input type="number" name="precio" id="id_precio" class="form-control" placeholder="Precio del mueble" value="{{ form.precio.value }}" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="id_stock" class="form-label text-dark">Cantidad en Stock</label>
+                <input type="number" name="stock" id="id_stock" class="form-control" placeholder="Cantidad en stock" value="{{ form.stock.value }}" step="1">
+            </div>
+            <div class="form-group">
+                <label for="id_categoria" class="form-label text-dark">Categoría</label>
+                <select name="categoria" id="id_categoria" class="form-control">
+                    {% for option in form.categoria.field.queryset %}
+                        <option value="{{ option.id }}" {% if option.id == form.categoria.value %}selected{% endif %}>{{ option.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_proveedor" class="form-label text-dark">Proveedor</label>
+                <select name="proveedor" id="id_proveedor" class="form-control">
+                    {% for option in form.proveedor.field.queryset %}
+                        <option value="{{ option.id }}" {% if option.id == form.proveedor.value %}selected{% endif %}>{{ option.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>
+        </form>
+    </div>
+{% endblock %}

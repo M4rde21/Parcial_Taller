@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrar Venta{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Registrar Nueva Venta</h1>
+        <form method="post" class="bg-light p-4 rounded shadow-sm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_cliente" class="form-label text-dark">Cliente</label>
+                <select name="cliente" id="id_cliente" class="form-control">
+                    {% for option in form.cliente.field.queryset %}
+                        <option value="{{ option.id }}">{{ option.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_mueble" class="form-label text-dark">Mueble</label>
+                <select name="mueble" id="id_mueble" class="form-control">
+                    {% for option in form.mueble.field.queryset %}
+                        <option value="{{ option.id }}">{{ option.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_cantidad" class="form-label text-dark">Cantidad</label>
+                <input type="number" name="cantidad" id="id_cantidad" class="form-control" placeholder="Cantidad de muebles" step="1">
+            </div>
+            <div class="form-group">
+                <label for="id_fecha_venta" class="form-label text-dark">Fecha de Venta</label>
+                <input type="date" name="fecha_venta" id="id_fecha_venta" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar Venta</button>
+        </form>
+    </div>
+{% endblock %}
